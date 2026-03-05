@@ -63,7 +63,7 @@ export default function AuthMethodSelector() {
 
             <div className="auth-header">
                 <h1>Choose Login Method</h1>
-                <p>Select how you'd like to identify yourself to start a battery swap</p>
+                <p>Select a modern login method to securely start your battery swap</p>
             </div>
 
             <div className="auth-method-grid">

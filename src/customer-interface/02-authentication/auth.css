@@ -83,7 +83,7 @@
 .auth-method-card {
     background: var(--surface-card);
     border: 1px solid var(--gray-800);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     padding: 28px 20px;
     display: flex;
     flex-direction: column;
