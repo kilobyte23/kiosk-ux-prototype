@@ -1,0 +1,99 @@
+/* Wrapper to simulate the physical 1080x1920 Kiosk screen */
+.kiosk-hardware-bezel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: #111;
+    /* Dark background behind the bezel */
+    padding: 24px;
+}
+
+.kiosk-screen-viewport {
+    width: 1080px;
+    height: 1920px;
+    background-color: var(--background);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 0 0 16px #000, 0 24px 64px rgba(0, 0, 0, 0.8);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    /* Scale down using CSS transform so it fits on normal monitors */
+    /* Storybook might override this or we can control it via a wrapper */
+    transform-origin: top center;
+}
+
+/* Kiosk Status Bar */
+.kiosk-status-bar {
+    height: 64px;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    color: var(--gray-100);
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.kiosk-status-bar.status-error {
+    background-color: rgba(255, 69, 58, 0.15);
+    color: var(--color-error);
+}
+
+.status-left,
+.status-right,
+.status-center {
+    display: flex;
+    align-items: center;
+}
+
+.status-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-variant-numeric: tabular-nums;
+    gap: 8px;
+}
+
+.error-icon {
+    color: var(--color-error);
+}
+
+/* Main Content Area */
+.kiosk-main-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background-color: var(--background);
+}
+
+/* Bottom Bar */
+.kiosk-bottom-bar {
+    height: 64px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    color: var(--gray-400);
+    font-size: 14px;
+    flex-shrink: 0;
+    border-top: 1px solid var(--gray-800);
+}
+
+.help-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design Tokens (CSS Custom Properties) ── */
+:root {
+  /* Brand */
+  --color-primary: #0A84FF;
+  --color-secondary: #30D158;
+  --color-accent: #FF9F0A;
+
+  /* Slot States */
+  --slot-available: #30D158;
+  --slot-charging: #FF9F0A;
+  --slot-reserved: #0A84FF;
+  --slot-fault: #FF453A;
+
+  /* Severity */
+  --severity-info: #64D2FF;
+  --severity-yellow: #FFD60A;
+  --severity-orange: #FF9F0A;
+  --severity-critical: #FF453A;
+
+  /* Neutral */
+  --gray-100: #F2F2F7;
+  --gray-200: #E5E5EA;
+  --gray-300: #D1D1D6;
+  --gray-400: #C7C7CC;
+  --gray-500: #AEAEB2;
+  --gray-600: #8E8E93;
+  --gray-700: #636366;
+  --gray-800: #48484A;
+  --gray-900: #3A3A3C;
+
+  /* Surface */
+  --surface-bg: #000000;
+  --surface-card: #1C1C1E;
+  --surface-elevated: #2C2C2E;
+  --surface-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Touch targets */
+  --touch-min: 48px;
+  --touch-comfortable: 56px;
+  --touch-glove: 72px;
+
+  /* Transitions */
+  --transition-fast: 100ms ease-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Base Styles ── */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--surface-bg);
+  color: var(--gray-100);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Links ── */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* ── Navigation Hub ── */
+.prototype-hub {
+  width: 100%;
+  padding: 40px 48px 64px;
+}
+
+.hub-header {
+  margin-bottom: 40px;
+}
+
+.hub-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gray-100);
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.hub-header .subtitle {
+  color: var(--gray-600);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.interface-section {
+  margin-bottom: 40px;
+}
+
+.interface-section h2 {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: var(--gray-600);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.module-card {
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--gray-800);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--card-accent, var(--color-primary));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.module-card:hover {
+  border-color: color-mix(in srgb, var(--card-accent, var(--color-primary)) 40%, transparent);
+  background: var(--surface-elevated);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+}
+
+.module-card:hover::before {
+  opacity: 1;
+}
+
+.module-card .card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--icon-bg, rgba(10, 132, 255, 0.1));
+  color: var(--icon-color, var(--color-primary));
+  transition: transform 0.25s ease;
+}
+
+.module-card:hover .card-icon {
+  transform: scale(1.08);
+}
+
+.module-card .card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.module-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--gray-100);
+}
+
+.module-card p {
+  font-size: 12px;
+  color: var(--gray-500);
+  line-height: 1.45;
+}
+
+.module-card .badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  margin-top: 8px;
+}
+
+.badge-screens {
+  background: rgba(10, 132, 255, 0.1);
+  color: var(--color-primary);
+}
+
+/* ── Page Layout (individual screens) ── */
+.screen-page {
+  min-height: 100vh;
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-page h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+}
+
+.screen-page p {
+  color: var(--gray-500);
+  font-size: 16px;
+  max-width: 480px;
+  text-align: center;
+}
+
+.back-link {
+  position: fixed;
+  top: var(--space-xl);
+  left: var(--space-xl);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-primary);
+  z-index: 100;
+}

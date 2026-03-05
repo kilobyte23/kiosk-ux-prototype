@@ -1,0 +1,1004 @@
+/* ══════════════════════════════════════════════════════
+   Authentication Module — Styles
+   ══════════════════════════════════════════════════════ */
+
+/* ── Auth Layout ── */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--surface-bg);
+    padding: 48px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(10, 132, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.auth-back-btn {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray-500);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    text-decoration: none;
+    z-index: 10;
+}
+
+.auth-back-btn:hover {
+    color: var(--color-primary);
+    opacity: 1;
+}
+
+.auth-back-btn .arrow {
+    font-size: 18px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 48px;
+    z-index: 1;
+}
+
+.auth-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--gray-100);
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    font-size: 16px;
+    color: var(--gray-500);
+    max-width: 400px;
+}
+
+/* ── Method Selector Grid ── */
+.auth-method-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 560px;
+    width: 100%;
+    z-index: 1;
+}
+
+.auth-method-card {
+    background: var(--surface-card);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-lg);
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-method-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--card-accent, var(--color-primary)), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.auth-method-card:hover {
+    border-color: var(--card-accent, var(--color-primary));
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    opacity: 1;
+}
+
+.auth-method-card:hover::before {
+    opacity: 1;
+}
+
+.auth-method-card:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.auth-method-card .icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: var(--icon-bg, rgba(10, 132, 255, 0.12));
+    color: var(--icon-color, var(--color-primary));
+    transition: transform 0.3s ease;
+}
+
+.auth-method-card:hover .icon-circle {
+    transform: scale(1.1);
+}
+
+.auth-method-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-100);
+    line-height: 1.3;
+}
+
+.auth-method-card .method-desc {
+    font-size: 12px;
+    color: var(--gray-500);
+    line-height: 1.4;
+}
+
+/* Card accent colors */
+.auth-method-card.qr {
+    --card-accent: #0A84FF;
+    --icon-bg: rgba(10, 132, 255, 0.12);
+    --icon-color: #0A84FF;
+}
+
+.auth-method-card.nfc {
+    --card-accent: #BF5AF2;
+    --icon-bg: rgba(191, 90, 242, 0.12);
+    --icon-color: #BF5AF2;
+}
+
+.auth-method-card.otp {
+    --card-accent: #30D158;
+    --icon-bg: rgba(48, 209, 88, 0.12);
+    --icon-color: #30D158;
+}
+
+.auth-method-card.rfid {
+    --card-accent: #FF9F0A;
+    --icon-bg: rgba(255, 159, 10, 0.12);
+    --icon-color: #FF9F0A;
+}
+
+.auth-method-card.biometric {
+    --card-accent: #FF453A;
+    --icon-bg: rgba(255, 69, 58, 0.12);
+    --icon-color: #FF453A;
+}
+
+.auth-method-card.guest {
+    --card-accent: #64D2FF;
+    --icon-bg: rgba(100, 210, 255, 0.12);
+    --icon-color: #64D2FF;
+}
+
+/* ── Full-width bottom card (Guest) ── */
+.auth-method-grid .full-width {
+    grid-column: 1 / -1;
+}
+
+/* ── Individual Screen Shared Styles ── */
+.auth-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-bg);
+    padding: 48px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-screen-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    max-width: 420px;
+    width: 100%;
+    z-index: 1;
+}
+
+.auth-screen-content h2 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.auth-screen-content .subtitle {
+    font-size: 15px;
+    color: var(--gray-500);
+    text-align: center;
+    margin-top: -20px;
+}
+
+/* ── QR Scanner ── */
+.qr-scanner-box {
+    width: 280px;
+    height: 280px;
+    border-radius: var(--radius-lg);
+    position: relative;
+    background: var(--surface-card);
+    overflow: hidden;
+    border: 2px solid var(--gray-700);
+}
+
+.qr-corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-color: var(--color-primary);
+    border-style: solid;
+    border-width: 0;
+}
+
+.qr-corner.tl {
+    top: 0;
+    left: 0;
+    border-top-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 8px;
+}
+
+.qr-corner.tr {
+    top: 0;
+    right: 0;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-top-right-radius: 8px;
+}
+
+.qr-corner.bl {
+    bottom: 0;
+    left: 0;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-bottom-left-radius: 8px;
+}
+
+.qr-corner.br {
+    bottom: 0;
+    right: 0;
+    border-bottom-width: 3px;
+    border-right-width: 3px;
+    border-bottom-right-radius: 8px;
+}
+
+.qr-scan-line {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    box-shadow: 0 0 12px rgba(10, 132, 255, 0.6);
+    animation: scanLine 2.5s ease-in-out infinite;
+}
+
+@keyframes scanLine {
+
+    0%,
+    100% {
+        top: 12px;
+    }
+
+    50% {
+        top: calc(100% - 14px);
+    }
+}
+
+.qr-grid-overlay {
+    position: absolute;
+    inset: 16px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 2px;
+    opacity: 0.08;
+}
+
+.qr-grid-cell {
+    border: 1px solid var(--color-primary);
+    border-radius: 2px;
+}
+
+.qr-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--gray-400);
+}
+
+.qr-status .pulse-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.3);
+    }
+}
+
+/* ── NFC Tap ── */
+.nfc-tap-area {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(191, 90, 242, 0.05);
+}
+
+.nfc-icon {
+    font-size: 56px;
+    z-index: 2;
+    animation: nfcFloat 3s ease-in-out infinite;
+}
+
+@keyframes nfcFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.nfc-pulse-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(191, 90, 242, 0.3);
+    animation: nfcPulse 2s ease-out infinite;
+}
+
+.nfc-pulse-ring:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    animation-delay: 0s;
+}
+
+.nfc-pulse-ring:nth-child(2) {
+    width: 160px;
+    height: 160px;
+    animation-delay: 0.4s;
+}
+
+.nfc-pulse-ring:nth-child(3) {
+    width: 200px;
+    height: 200px;
+    animation-delay: 0.8s;
+}
+
+@keyframes nfcPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+.nfc-label {
+    font-size: 15px;
+    color: var(--gray-400);
+    text-align: center;
+    line-height: 1.5;
+    animation: nfcLabelPulse 2s ease-in-out infinite;
+}
+
+@keyframes nfcLabelPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* ── OTP Login ── */
+.otp-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.phone-input-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.country-code {
+    background: var(--surface-elevated);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    padding: 14px 12px;
+    color: var(--gray-100);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-family);
+    min-width: 72px;
+    text-align: center;
+}
+
+.phone-input {
+    flex: 1;
+    background: var(--surface-elevated);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    color: var(--gray-100);
+    font-size: 18px;
+    font-family: var(--font-family);
+    letter-spacing: 1px;
+    transition: border-color 0.2s ease;
+    outline: none;
+}
+
+.phone-input:focus {
+    border-color: var(--color-primary);
+}
+
+.phone-input::placeholder {
+    color: var(--gray-600);
+}
+
+.otp-code-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.otp-digit {
+    width: 52px;
+    height: 64px;
+    background: var(--surface-elevated);
+    border: 2px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gray-100);
+    font-family: var(--font-family);
+    transition: border-color 0.2s ease;
+    outline: none;
+}
+
+.otp-digit:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15);
+}
+
+.otp-timer {
+    text-align: center;
+    font-size: 14px;
+    color: var(--gray-500);
+}
+
+.otp-timer .countdown {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.otp-timer .resend-btn {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-size: 14px;
+}
+
+.otp-timer .resend-btn:hover {
+    text-decoration: underline;
+}
+
+/* ── RFID Card Reader ── */
+.rfid-reader-visual {
+    width: 240px;
+    height: 160px;
+    border-radius: var(--radius-xl);
+    background: var(--surface-card);
+    border: 2px solid var(--gray-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.rfid-slot {
+    width: 120px;
+    height: 8px;
+    background: var(--gray-700);
+    border-radius: var(--radius-full);
+    position: relative;
+}
+
+.rfid-led-ring {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 12px rgba(255, 159, 10, 0.6);
+    animation: rfidLed 1.5s ease-in-out infinite;
+}
+
+@keyframes rfidLed {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 12px rgba(255, 159, 10, 0.6);
+    }
+
+    50% {
+        opacity: 0.4;
+        box-shadow: 0 0 4px rgba(255, 159, 10, 0.3);
+    }
+}
+
+.rfid-card-icon {
+    position: absolute;
+    font-size: 48px;
+    animation: rfidSlide 3s ease-in-out infinite;
+}
+
+@keyframes rfidSlide {
+
+    0%,
+    100% {
+        transform: translateX(-20px) rotate(-5deg);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* ── Biometric ── */
+.fingerprint-pad {
+    width: 160px;
+    height: 200px;
+    border-radius: var(--radius-xl);
+    background: var(--surface-card);
+    border: 2px solid var(--gray-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.fingerprint-icon {
+    font-size: 72px;
+    opacity: 0.8;
+    animation: fingerprintPulse 2s ease-in-out infinite;
+}
+
+@keyframes fingerprintPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+.fingerprint-scan-line {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #FF453A, transparent);
+    box-shadow: 0 0 8px rgba(255, 69, 58, 0.5);
+    animation: fpScan 2s ease-in-out infinite;
+}
+
+@keyframes fpScan {
+
+    0%,
+    100% {
+        top: 20px;
+    }
+
+    50% {
+        top: calc(100% - 22px);
+    }
+}
+
+.confidence-bar-container {
+    width: 100%;
+    max-width: 320px;
+}
+
+.confidence-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+}
+
+.confidence-bar-label .value {
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+.confidence-bar-track {
+    width: 100%;
+    height: 8px;
+    background: var(--gray-800);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.confidence-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, #FF453A, #FF9F0A, #30D158);
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px rgba(48, 209, 88, 0.3);
+}
+
+/* ── Guest Mode ── */
+.guest-badge {
+    background: rgba(100, 210, 255, 0.1);
+    border: 1px solid rgba(100, 210, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 20px 32px;
+    text-align: center;
+}
+
+.guest-badge .icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.guest-badge h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #64D2FF;
+    margin-bottom: 4px;
+}
+
+.guest-badge p {
+    font-size: 13px;
+    color: var(--gray-500);
+}
+
+.quota-display {
+    background: var(--surface-card);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.quota-ring {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 4px solid var(--gray-700);
+    border-top-color: #64D2FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #64D2FF;
+    flex-shrink: 0;
+}
+
+.quota-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-200);
+    margin-bottom: 2px;
+}
+
+.quota-info p {
+    font-size: 12px;
+    color: var(--gray-500);
+}
+
+/* ── Account Not Found ── */
+.not-found-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 69, 58, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+}
+
+.not-found-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* ── Session Timeout ── */
+.timeout-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: overlayIn 0.3s ease-out;
+}
+
+@keyframes overlayIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.timeout-card {
+    background: var(--surface-card);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-xl);
+    padding: 40px 32px;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    animation: cardSlideUp 0.3s ease-out;
+}
+
+@keyframes cardSlideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.timeout-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid var(--gray-700);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeout-ring svg {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    transform: rotate(-90deg);
+}
+
+.timeout-ring svg circle {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+.timeout-ring .track {
+    stroke: var(--gray-700);
+}
+
+.timeout-ring .progress {
+    stroke: var(--color-accent);
+    transition: stroke-dashoffset 1s linear;
+}
+
+.timeout-ring .seconds {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.timeout-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-100);
+}
+
+.timeout-card p {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.5;
+}
+
+.timeout-actions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+/* ── Shared Buttons ── */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: none;
+    min-height: var(--touch-min);
+    width: 100%;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #0971df;
+    box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
+}
+
+.btn-secondary {
+    background: var(--surface-elevated);
+    color: var(--gray-200);
+    border: 1px solid var(--gray-700);
+}
+
+.btn-secondary:hover {
+    border-color: var(--gray-500);
+    background: var(--gray-800);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: rgba(10, 132, 255, 0.08);
+}
+
+.btn-success {
+    background: var(--color-secondary);
+    color: #000;
+}
+
+.btn-success:hover {
+    background: #28b84d;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--gray-400);
+}
+
+.btn-ghost:hover {
+    color: var(--gray-200);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Divider ── */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    color: var(--gray-600);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-800);
+}
+
+/* ── Status Chips ── */
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-chip.active {
+    background: rgba(48, 209, 88, 0.1);
+    color: #30D158;
+}
+
+.status-chip.waiting {
+    background: rgba(255, 159, 10, 0.1);
+    color: #FF9F0A;
+}
+
+.status-chip.error {
+    background: rgba(255, 69, 58, 0.1);
+    color: #FF453A;
+}
