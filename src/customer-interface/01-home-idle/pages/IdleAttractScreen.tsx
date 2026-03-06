@@ -55,7 +55,6 @@ export default function IdleAttractScreen() {
             <div className="hero-copy__headline">
               <StationStatusBanner copy={copy} telemetry={telemetry} />
               <h1>{copy.heroTitle}</h1>
-              <p className="hero-subtitle">{copy.heroSubtitle}</p>
             </div>
 
             <PromotionalCarousel items={promotions} />
