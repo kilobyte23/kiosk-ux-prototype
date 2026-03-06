@@ -11,6 +11,7 @@
   gap: var(--idle-card-gap);
   padding: 14px 16px 12px;
   overflow: hidden;
+  min-height: 0;
   background:
     radial-gradient(circle at 8% -10%, rgba(var(--cream-rgb), 0.08), transparent 32%),
     radial-gradient(circle at 90% 12%, rgba(var(--mauve-rgb), 0.18), transparent 32%),
@@ -37,6 +38,7 @@
 .idle-hero-panel {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   gap: var(--idle-card-gap);
   padding: 16px;
   min-height: 0;
@@ -45,9 +47,11 @@
 .hero-stage {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.92fr);
+  flex: 1 1 auto;
   gap: var(--idle-card-gap);
   align-items: stretch;
   min-height: 0;
+  height: 100%;
 }
 
 .hero-copy {
