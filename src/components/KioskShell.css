@@ -1,36 +1,38 @@
-/* Wrapper to simulate the physical 1080x1920 Kiosk screen */
 .kiosk-hardware-bezel {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    background-color: #111;
-    /* Dark background behind the bezel */
-    padding: 24px;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    background:
+        radial-gradient(circle at top, rgba(var(--mauve-rgb), 0.2), transparent 28%),
+        linear-gradient(180deg, #2E1A28 0%, #1F1119 100%);
 }
 
 .kiosk-screen-viewport {
-    width: 1080px;
-    height: 1920px;
-    background-color: var(--background);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 0 0 16px #000, 0 24px 64px rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+    background: var(--background);
     position: relative;
     display: flex;
     flex-direction: column;
-
-    /* Scale down using CSS transform so it fits on normal monitors */
-    /* Storybook might override this or we can control it via a wrapper */
-    transform-origin: top center;
+    overflow: hidden;
 }
 
-/* Kiosk Status Bar */
+.kiosk-screen-viewport::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(var(--cream-rgb), 0.03) 0%, transparent 20%),
+        radial-gradient(circle at top right, rgba(var(--mauve-rgb), 0.14), transparent 30%);
+    pointer-events: none;
+}
+
 .kiosk-status-bar {
-    height: 64px;
-    background-color: rgba(0, 0, 0, 0.4);
+    height: 68px;
+    background: rgba(var(--ink-rgb), 0.42);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     display: flex;
@@ -38,16 +40,16 @@
     justify-content: space-between;
     padding: 0 32px;
     color: var(--gray-100);
-    font-size: 18px;
-    font-weight: 500;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    z-index: 100;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(var(--cream-rgb), 0.08);
+    z-index: 10;
     flex-shrink: 0;
 }
 
 .kiosk-status-bar.status-error {
-    background-color: rgba(255, 69, 58, 0.15);
-    color: var(--color-error);
+    background: rgba(var(--error-rgb), 0.24);
+    color: var(--gray-100);
 }
 
 .status-left,
@@ -57,43 +59,195 @@
     align-items: center;
 }
 
+.status-left {
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-300);
+}
+
+.station-name {
+    font-size: 12px;
+    font-weight: 700;
+}
+
 .status-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     font-variant-numeric: tabular-nums;
     gap: 8px;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    background: rgba(var(--cream-rgb), 0.05);
+    border: 1px solid rgba(var(--cream-rgb), 0.08);
+}
+
+.clock {
+    color: var(--gray-200);
+    font-weight: 700;
+}
+
+.clock-trigger {
+    min-height: 30px;
+    padding: 0 8px;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    background: transparent;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.clock-trigger:focus-visible {
+    outline: 2px solid rgba(var(--cream-rgb), 0.72);
+    outline-offset: 2px;
+}
+
+.status-right {
+    gap: 8px;
+    color: var(--gray-300);
+}
+
+.status-right svg {
+    opacity: 0.92;
+}
+
+.connectivity-pill,
+.availability-pill {
+    min-height: 34px;
+    padding: 0 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(var(--cream-rgb), 0.16);
+    background: rgba(var(--cream-rgb), 0.08);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.connectivity-pill small,
+.availability-pill small {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.connectivity-pill--online {
+    color: #D9F6E4;
+    border-color: rgba(96, 214, 157, 0.46);
+    background: rgba(40, 128, 83, 0.22);
+}
+
+.connectivity-pill--degraded {
+    color: #FFE9C8;
+    border-color: rgba(232, 181, 101, 0.5);
+    background: rgba(144, 97, 24, 0.24);
+}
+
+.connectivity-pill--offline {
+    color: #F7D3D3;
+    border-color: rgba(196, 106, 106, 0.5);
+    background: rgba(119, 44, 44, 0.28);
+}
+
+.availability-pill {
+    color: var(--gray-100);
 }
 
 .error-icon {
-    color: var(--color-error);
+    color: var(--color-secondary);
 }
 
-/* Main Content Area */
 .kiosk-main-content {
     flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
-    background-color: var(--background);
+    z-index: 1;
 }
 
-/* Bottom Bar */
+.kiosk-overlay {
+    position: absolute;
+    top: 78px;
+    right: 14px;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.kiosk-overlay > * {
+    pointer-events: auto;
+}
+
 .kiosk-bottom-bar {
     height: 64px;
-    background-color: #000;
+    background: rgba(var(--ink-rgb), 0.58);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 32px;
     color: var(--gray-400);
-    font-size: 14px;
+    font-size: 13px;
     flex-shrink: 0;
-    border-top: 1px solid var(--gray-800);
+    border-top: 1px solid rgba(var(--cream-rgb), 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 10;
+}
+
+.help-text,
+.version-info,
+.kiosk-bottom-right,
+.kiosk-footer-actions {
+    position: relative;
+    z-index: 1;
 }
 
 .help-text {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.version-info {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+}
+
+.kiosk-bottom-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.kiosk-footer-actions {
+    display: inline-flex;
+    align-items: center;
+}
+
+@media (max-width: 1040px) {
+    .kiosk-status-bar,
+    .kiosk-bottom-bar {
+        padding: 0 18px;
+    }
+
+    .status-right {
+        gap: 6px;
+    }
+
+    .connectivity-pill,
+    .availability-pill {
+        min-height: 32px;
+        padding: 0 8px;
+    }
+
+    .availability-pill small {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .kiosk-bottom-right {
+        gap: 8px;
+    }
 }

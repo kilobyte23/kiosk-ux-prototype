@@ -1,8 +1,13 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Routes, Route, Link, Outlet, Navigate } from 'react-router-dom';
+import KioskShell from './components/KioskShell';
 
 /* ── Customer Interface Pages ── */
 import IdleAttractScreen from './customer-interface/01-home-idle/pages/IdleAttractScreen';
 import StationStatusScreen from './customer-interface/01-home-idle/pages/StationStatusScreen';
+import { HomeIdleProvider, useHomeIdle } from './customer-interface/01-home-idle/HomeIdleContext';
+import IdleTechnicalDrawer from './customer-interface/01-home-idle/components/IdleTechnicalDrawer';
+import SimulationPane from './customer-interface/01-home-idle/components/SimulationPane';
 import AuthMethodSelector from './customer-interface/02-authentication/pages/AuthMethodSelector';
 import QRScannerScreen from './customer-interface/02-authentication/pages/QRScannerScreen';
 import NFCTapScreen from './customer-interface/02-authentication/pages/NFCTapScreen';
@@ -89,8 +94,7 @@ import LogRetentionConfig from './admin-interface/06-reporting-logs/pages/LogRet
 import SyslogExport from './admin-interface/06-reporting-logs/pages/SyslogExport';
 
 import {
-  House, ShieldCheck, BatteryCharging, Wallet, Warning, Wheelchair,
-  SquaresFour, Cpu, WifiHigh, LockSimple, Wrench, FileText,
+  House, SquaresFour, Cpu, WifiHigh, LockSimple, Wrench, FileText,
 } from '@phosphor-icons/react';
 import type { Icon as PhosphorIcon } from '@phosphor-icons/react';
 
@@ -105,22 +109,15 @@ interface ModuleInfo {
   iconBg: string;
 }
 
-const customerModules: ModuleInfo[] = [
-  { path: '/customer/home', title: 'Home & Idle', description: 'Attract-mode idle screen, station status, language & accessibility controls', screens: 2, icon: House, accent: '#0A84FF', iconBg: 'rgba(10,132,255,0.1)' },
-  { path: '/customer/auth-select', title: 'Authentication', description: 'QR, NFC, OTP, RFID, biometric, guest mode, account recovery', screens: 8, icon: ShieldCheck, accent: '#BF5AF2', iconBg: 'rgba(191,90,242,0.1)' },
-  { path: '/customer/swap', title: 'Battery Swap', description: 'Slot map, battery info, auto-assign, swap confirmation & timer', screens: 7, icon: BatteryCharging, accent: '#30D158', iconBg: 'rgba(48,209,88,0.1)' },
-  { path: '/customer/payment', title: 'Payment & Billing', description: 'Wallet, cost breakdown, UPI, subscriptions, corporate billing', screens: 8, icon: Wallet, accent: '#FF9F0A', iconBg: 'rgba(255,159,10,0.1)' },
-  { path: '/customer/alerts', title: 'Alerts & Safety', description: 'Temperature warnings, emergency overlays, error recovery', screens: 7, icon: Warning, accent: '#FF453A', iconBg: 'rgba(255,69,58,0.1)' },
-  { path: '/customer/accessibility', title: 'Accessibility', description: 'High contrast, large text, glove mode, anti-glare', screens: 4, icon: Wheelchair, accent: '#64D2FF', iconBg: 'rgba(100,210,255,0.1)' },
-];
+/* customerModules removed as we now use a unified flow out of CustomerHub */
 
 const adminModules: ModuleInfo[] = [
-  { path: '/admin/dashboard', title: 'Local Dashboard', description: 'System resources, process health, logs, firmware, maintenance', screens: 8, icon: SquaresFour, accent: '#0A84FF', iconBg: 'rgba(10,132,255,0.1)' },
-  { path: '/admin/bms', title: 'BMS & Charging', description: 'Charging profiles, BMS data, SoH charts, thermal management', screens: 8, icon: Cpu, accent: '#30D158', iconBg: 'rgba(48,209,88,0.1)' },
-  { path: '/admin/network', title: 'Connectivity', description: 'Multi-WAN, failover, VPN, MQTT, bandwidth, diagnostics', screens: 8, icon: WifiHigh, accent: '#FF9F0A', iconBg: 'rgba(255,159,10,0.1)' },
-  { path: '/admin/security', title: 'Security & Access', description: 'Role management, SSH audit, firewall, intrusion detection', screens: 8, icon: LockSimple, accent: '#FF453A', iconBg: 'rgba(255,69,58,0.1)' },
-  { path: '/admin/diagnostics', title: 'Diagnostics', description: 'Self-test, actuator test, calibration, screen-share, backup', screens: 8, icon: Wrench, accent: '#BF5AF2', iconBg: 'rgba(191,90,242,0.1)' },
-  { path: '/admin/reports', title: 'Reporting & Logs', description: 'Transaction logs, energy reports, uptime, error histograms', screens: 8, icon: FileText, accent: '#64D2FF', iconBg: 'rgba(100,210,255,0.1)' },
+  { path: '/admin/dashboard', title: 'Local Dashboard', description: 'System resources, process health, logs, firmware, maintenance', screens: 8, icon: SquaresFour, accent: '#A78295', iconBg: 'rgba(167,130,149,0.18)' },
+  { path: '/admin/bms', title: 'BMS & Charging', description: 'Charging profiles, BMS data, SoH charts, thermal management', screens: 8, icon: Cpu, accent: '#C6A7B6', iconBg: 'rgba(198,167,182,0.18)' },
+  { path: '/admin/network', title: 'Connectivity', description: 'Multi-WAN, failover, VPN, MQTT, bandwidth, diagnostics', screens: 8, icon: WifiHigh, accent: '#EFE1D1', iconBg: 'rgba(239,225,209,0.14)' },
+  { path: '/admin/security', title: 'Security & Access', description: 'Role management, SSH audit, firewall, intrusion detection', screens: 8, icon: LockSimple, accent: '#8A687A', iconBg: 'rgba(138,104,122,0.18)' },
+  { path: '/admin/diagnostics', title: 'Diagnostics', description: 'Self-test, actuator test, calibration, screen-share, backup', screens: 8, icon: Wrench, accent: '#DCC9BF', iconBg: 'rgba(239,225,209,0.1)' },
+  { path: '/admin/reports', title: 'Reporting & Logs', description: 'Transaction logs, energy reports, uptime, error histograms', screens: 8, icon: FileText, accent: '#B595A4', iconBg: 'rgba(181,149,164,0.18)' },
 ];
 
 function ModuleCard({ m }: { m: ModuleInfo }) {
@@ -143,27 +140,107 @@ function ModuleCard({ m }: { m: ModuleInfo }) {
   );
 }
 
-function Hub() {
+function RootHub() {
   return (
     <div className="prototype-hub">
       <div className="hub-header">
         <h1>Battery Swap Kiosk</h1>
-        <p className="subtitle">UX Prototype — Screen Navigator</p>
+        <p className="subtitle">Select Flow</p>
       </div>
+      <div className="module-grid">
+        <Link to="/customer" className="module-card" style={{ '--card-accent': '#A78295', '--icon-bg': 'rgba(167,130,149,0.18)', '--icon-color': '#EFE1D1' } as React.CSSProperties}>
+          <div className="card-icon"><House size={20} weight="light" /></div>
+          <div className="card-body">
+            <h3>Customer Flow</h3>
+            <p>End-user battery swap experience</p>
+          </div>
+        </Link>
+        <Link to="/admin" className="module-card" style={{ '--card-accent': '#EFE1D1', '--icon-bg': 'rgba(239,225,209,0.14)', '--icon-color': '#EFE1D1' } as React.CSSProperties}>
+          <div className="card-icon"><Wrench size={20} weight="light" /></div>
+          <div className="card-body">
+            <h3>Admin Flow</h3>
+            <p>Station management and diagnostics</p>
+          </div>
+        </Link>
+      </div>
+    </div>
+  );
+}
 
-      <section className="interface-section">
-        <h2>Customer Interface</h2>
-        <div className="module-grid">
-          {customerModules.map((m) => <ModuleCard key={m.path} m={m} />)}
-        </div>
-      </section>
+function CustomerHub() {
+  const {
+    shellSupportText,
+    shellTimeLabel,
+    stationLabel,
+    telemetry,
+    copy,
+    simulationMode,
+    updateTelemetry,
+  } = useHomeIdle();
+  const [showSimulationPane, setShowSimulationPane] = useState(false);
 
-      <section className="interface-section">
-        <h2>Admin Interface</h2>
-        <div className="module-grid">
-          {adminModules.map((m) => <ModuleCard key={m.path} m={m} />)}
-        </div>
-      </section>
+  const availabilityText = `${copy.availabilityLabel}: ${telemetry.availableBatteries}/${telemetry.totalBatteries}`;
+  const hasError = telemetry.operationalStatus === 'maintenance';
+
+  return (
+    <div style={{ width: '100vw', height: '100vh', padding: 0, margin: 0, overflow: 'hidden' }}>
+      <Link to="/" className="back-link" aria-label="Back to flows">
+        <span className="back-link__icon" aria-hidden="true">←</span>
+        <span className="back-link__label">Back to Flows</span>
+      </Link>
+      <KioskShell
+        stationName={stationLabel}
+        time={shellTimeLabel}
+        hasError={hasError}
+        connectivity={telemetry.connectivity}
+        supportText={shellSupportText}
+        availabilityText={availabilityText}
+        onClockTripleClick={() => {
+          setShowSimulationPane((currentValue) => !currentValue);
+        }}
+        overlay={showSimulationPane ? (
+          <SimulationPane
+            telemetry={telemetry}
+            onTelemetryChange={updateTelemetry}
+            onClose={() => setShowSimulationPane(false)}
+          />
+        ) : null}
+        footerActions={(
+          <IdleTechnicalDrawer
+            copy={copy}
+            simulationMode={simulationMode}
+            telemetry={telemetry}
+          />
+        )}
+      >
+        <Outlet />
+      </KioskShell>
+    </div>
+  );
+}
+
+function CustomerFlow() {
+  return (
+    <HomeIdleProvider>
+      <CustomerHub />
+    </HomeIdleProvider>
+  );
+}
+
+function AdminHub() {
+  return (
+    <div className="prototype-hub">
+      <Link to="/" className="back-link" aria-label="Back to flows">
+        <span className="back-link__icon" aria-hidden="true">←</span>
+        <span className="back-link__label">Back to Flows</span>
+      </Link>
+      <div className="hub-header" style={{ marginTop: '24px' }}>
+        <h1>Admin Interface</h1>
+        <p className="subtitle">UX Prototype Screens</p>
+      </div>
+      <div className="module-grid">
+        {adminModules.map((m) => <ModuleCard key={m.path} m={m} />)}
+      </div>
     </div>
   );
 }
@@ -171,52 +248,55 @@ function Hub() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Hub />} />
-
+      <Route path="/" element={<RootHub />} />
       {/* ── Customer Interface ── */}
-      <Route path="/customer/home" element={<IdleAttractScreen />} />
-      <Route path="/customer/home/status" element={<StationStatusScreen />} />
+      <Route path="/customer" element={<CustomerFlow />}>
+        <Route index element={<Navigate to="/customer/home" replace />} />
+        <Route path="home" element={<IdleAttractScreen />} />
+        <Route path="home/status" element={<StationStatusScreen />} />
 
-      <Route path="/customer/auth-select" element={<AuthMethodSelector />} />
-      <Route path="/customer/auth" element={<QRScannerScreen />} />
-      <Route path="/customer/auth/nfc" element={<NFCTapScreen />} />
-      <Route path="/customer/auth/otp" element={<MobileOTPScreen />} />
-      <Route path="/customer/auth/rfid" element={<RFIDReaderScreen />} />
-      <Route path="/customer/auth/biometric" element={<BiometricScreen />} />
-      <Route path="/customer/auth/guest" element={<GuestModeScreen />} />
-      <Route path="/customer/auth/not-found" element={<AccountNotFoundScreen />} />
+        <Route path="auth-select" element={<AuthMethodSelector />} />
+        <Route path="auth" element={<QRScannerScreen />} />
+        <Route path="auth/nfc" element={<NFCTapScreen />} />
+        <Route path="auth/otp" element={<MobileOTPScreen />} />
+        <Route path="auth/rfid" element={<RFIDReaderScreen />} />
+        <Route path="auth/biometric" element={<BiometricScreen />} />
+        <Route path="auth/guest" element={<GuestModeScreen />} />
+        <Route path="auth/not-found" element={<AccountNotFoundScreen />} />
 
-      <Route path="/customer/swap" element={<SlotMapScreen />} />
-      <Route path="/customer/swap/battery-info" element={<BatteryInfoScreen />} />
-      <Route path="/customer/swap/auto-assign" element={<AutoAssignScreen />} />
-      <Route path="/customer/swap/manual-select" element={<ManualSlotSelectScreen />} />
-      <Route path="/customer/swap/confirm" element={<SwapConfirmationScreen />} />
-      <Route path="/customer/swap/timer" element={<SwapTimerScreen />} />
-      <Route path="/customer/swap/receipt" element={<PostSwapReceiptScreen />} />
+        <Route path="swap" element={<SlotMapScreen />} />
+        <Route path="swap/battery-info" element={<BatteryInfoScreen />} />
+        <Route path="swap/auto-assign" element={<AutoAssignScreen />} />
+        <Route path="swap/manual-select" element={<ManualSlotSelectScreen />} />
+        <Route path="swap/confirm" element={<SwapConfirmationScreen />} />
+        <Route path="swap/timer" element={<SwapTimerScreen />} />
+        <Route path="swap/receipt" element={<PostSwapReceiptScreen />} />
 
-      <Route path="/customer/payment" element={<WalletBalanceScreen />} />
-      <Route path="/customer/payment/cost" element={<CostBreakdownScreen />} />
-      <Route path="/customer/payment/subscription" element={<SubscriptionBadgeScreen />} />
-      <Route path="/customer/payment/upi" element={<UPIPaymentScreen />} />
-      <Route path="/customer/payment/confirm" element={<OneTapConfirmScreen />} />
-      <Route path="/customer/payment/failure" element={<PaymentFailureScreen />} />
-      <Route path="/customer/payment/corporate" element={<CorporateBillingScreen />} />
-      <Route path="/customer/payment/history" element={<TransactionHistoryScreen />} />
+        <Route path="payment" element={<WalletBalanceScreen />} />
+        <Route path="payment/cost" element={<CostBreakdownScreen />} />
+        <Route path="payment/subscription" element={<SubscriptionBadgeScreen />} />
+        <Route path="payment/upi" element={<UPIPaymentScreen />} />
+        <Route path="payment/confirm" element={<OneTapConfirmScreen />} />
+        <Route path="payment/failure" element={<PaymentFailureScreen />} />
+        <Route path="payment/corporate" element={<CorporateBillingScreen />} />
+        <Route path="payment/history" element={<TransactionHistoryScreen />} />
 
-      <Route path="/customer/alerts" element={<TempWarningScreen />} />
-      <Route path="/customer/alerts/lockout" element={<OvertempLockoutScreen />} />
-      <Route path="/customer/alerts/slot-jam" element={<SlotJamErrorScreen />} />
-      <Route path="/customer/alerts/fire" element={<FireSmokeOverlayScreen />} />
-      <Route path="/customer/alerts/power-outage" element={<PowerOutageScreen />} />
-      <Route path="/customer/alerts/tamper" element={<TamperDetectionScreen />} />
-      <Route path="/customer/alerts/feedback" element={<PostSwapFeedbackScreen />} />
+        <Route path="alerts" element={<TempWarningScreen />} />
+        <Route path="alerts/lockout" element={<OvertempLockoutScreen />} />
+        <Route path="alerts/slot-jam" element={<SlotJamErrorScreen />} />
+        <Route path="alerts/fire" element={<FireSmokeOverlayScreen />} />
+        <Route path="alerts/power-outage" element={<PowerOutageScreen />} />
+        <Route path="alerts/tamper" element={<TamperDetectionScreen />} />
+        <Route path="alerts/feedback" element={<PostSwapFeedbackScreen />} />
 
-      <Route path="/customer/accessibility" element={<HighContrastScreen />} />
-      <Route path="/customer/accessibility/large-text" element={<LargeTextScreen />} />
-      <Route path="/customer/accessibility/glove" element={<RainGloveScreen />} />
-      <Route path="/customer/accessibility/antiglare" element={<SunlightAntiglareScreen />} />
+        <Route path="accessibility" element={<HighContrastScreen />} />
+        <Route path="accessibility/large-text" element={<LargeTextScreen />} />
+        <Route path="accessibility/glove" element={<RainGloveScreen />} />
+        <Route path="accessibility/antiglare" element={<SunlightAntiglareScreen />} />
+      </Route>
 
       {/* ── Admin Interface ── */}
+      <Route path="/admin" element={<AdminHub />} />
       <Route path="/admin/dashboard" element={<DashboardOverview />} />
       <Route path="/admin/dashboard/resources" element={<SystemResourceMonitor />} />
       <Route path="/admin/dashboard/processes" element={<ProcessHealthPanel />} />

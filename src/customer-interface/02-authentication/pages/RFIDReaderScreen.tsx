@@ -21,31 +21,22 @@ export default function RFIDReaderScreen() {
         </div>
 
         <div className="status-chip waiting">
-          <span style={{ fontSize: '8px' }}>&#9679;</span> LED blinking — reader ready
+          <span className="kiosk-status-dot">&#9679;</span> LED blinking — reader ready
         </div>
 
-        <div style={{
-          background: 'var(--surface-card)',
-          border: '1px solid var(--gray-800)',
-          borderRadius: 'var(--radius-lg)',
-          padding: '16px 20px',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: '12px'
-        }}>
-          <Lightbulb size={18} weight="fill" style={{ color: 'var(--color-accent)', flexShrink: 0, marginTop: '2px' }} />
-          <div>
-            <p style={{ fontSize: '13px', color: 'var(--gray-400)', lineHeight: 1.5 }}>
-              Hold your card near the amber LED indicator on the reader slot.
-              The LED will turn <strong style={{ color: '#30D158' }}>green</strong> when your card is recognized.
+        <div className="kiosk-note-card">
+          <Lightbulb size={18} weight="fill" className="kiosk-note-icon" />
+          <div className="kiosk-note-card__body">
+            <p className="kiosk-note-card__text">
+              Hold your card near the illuminated reader area. The indicator becomes{' '}
+              <span className="kiosk-emphasis">steady and bright</span> once the card is recognized.
             </p>
           </div>
         </div>
 
         <div className="auth-divider">or use another method</div>
 
-        <Link to="/customer/auth-select" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
+        <Link to="/customer/auth-select" className="btn btn-secondary">
           Choose different login method
         </Link>
       </div>

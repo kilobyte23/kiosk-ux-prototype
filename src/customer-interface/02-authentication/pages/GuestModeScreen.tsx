@@ -27,22 +27,16 @@ export default function GuestModeScreen() {
           </div>
         </div>
 
-        <div style={{
-          background: 'var(--surface-card)',
-          border: '1px solid var(--gray-800)',
-          borderRadius: 'var(--radius-lg)',
-          padding: '16px 20px',
-          width: '100%',
-        }}>
-          <p style={{ fontSize: '13px', color: 'var(--gray-400)', lineHeight: 1.6, marginBottom: '12px' }}>
-            <strong style={{ color: 'var(--gray-200)' }}>Guest limitations:</strong>
-          </p>
-          <ul style={{ fontSize: '13px', color: 'var(--gray-500)', paddingLeft: '16px', lineHeight: 1.8, margin: 0 }}>
+        <div className="kiosk-note-card">
+          <div className="kiosk-note-card__body">
+            <p className="kiosk-note-card__title">Guest limitations</p>
+            <ul className="kiosk-note-list">
             <li>1 swap per 24 hours</li>
             <li>No subscription discounts</li>
             <li>No wallet or saved payment methods</li>
             <li>No swap history</li>
-          </ul>
+            </ul>
+          </div>
         </div>
 
         <button className="btn btn-primary">
@@ -51,7 +45,7 @@ export default function GuestModeScreen() {
 
         <div className="auth-divider">want full access?</div>
 
-        <Link to="/customer/auth-select" className="btn btn-outline" style={{ textDecoration: 'none' }}>
+        <Link to="/customer/auth-select" className="btn btn-outline">
           Sign in with an account
         </Link>
       </div>

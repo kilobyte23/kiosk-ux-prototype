@@ -33,7 +33,7 @@ export default function QRScannerScreen() {
 
         <div className="auth-divider">or use another method</div>
 
-        <Link to="/customer/auth-select" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
+        <Link to="/customer/auth-select" className="btn btn-secondary">
           <Scan size={18} weight="bold" /> Choose different login method
         </Link>
       </div>

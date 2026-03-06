@@ -17,27 +17,22 @@ export default function AccountNotFoundScreen() {
           <UserMinus size={44} weight="light" />
         </div>
 
-        <div style={{
-          background: 'rgba(255, 69, 58, 0.06)',
-          border: '1px solid rgba(255, 69, 58, 0.15)',
-          borderRadius: 'var(--radius-lg)',
-          padding: '16px 20px',
-          width: '100%',
-          textAlign: 'center'
-        }}>
-          <p style={{ fontSize: '14px', color: 'var(--gray-400)', lineHeight: 1.5 }}>
-            The QR code, NFC card, or phone number is not linked to any registered account.
-          </p>
+        <div className="kiosk-note-card kiosk-note-card--alert">
+          <div className="kiosk-note-card__body">
+            <p className="kiosk-note-card__text">
+              The QR code, NFC card, or phone number you provided is not linked to a registered rider account.
+            </p>
+          </div>
         </div>
 
         <div className="not-found-actions">
           <button className="btn btn-primary">
             <DeviceMobile size={18} weight="bold" /> Register New Account
           </button>
-          <Link to="/customer/auth-select" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
+          <Link to="/customer/auth-select" className="btn btn-secondary">
             Try a different login method
           </Link>
-          <Link to="/customer/auth/guest" className="btn btn-ghost" style={{ textDecoration: 'none' }}>
+          <Link to="/customer/auth/guest" className="btn btn-ghost">
             Continue as Guest
           </Link>
         </div>

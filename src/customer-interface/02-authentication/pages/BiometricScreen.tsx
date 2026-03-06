@@ -57,7 +57,7 @@ export default function BiometricScreen() {
         </div>
 
         <div className={`status-chip ${status === 'matched' ? 'active' : 'waiting'}`}>
-          <span style={{ fontSize: '8px' }}>&#9679;</span>
+          <span className="kiosk-status-dot">&#9679;</span>
           {status === 'waiting' && 'Waiting for fingerprint…'}
           {status === 'scanning' && 'Scanning fingerprint…'}
           {status === 'matched' && 'Fingerprint matched'}
@@ -65,7 +65,7 @@ export default function BiometricScreen() {
 
         <div className="auth-divider">or use another method</div>
 
-        <Link to="/customer/auth-select" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
+        <Link to="/customer/auth-select" className="btn btn-secondary">
           Choose different login method
         </Link>
       </div>

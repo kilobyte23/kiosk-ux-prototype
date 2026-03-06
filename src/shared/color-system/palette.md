@@ -1,35 +1,40 @@
 # Color System — Palette
 
-## Brand Colors
-| Name      | Hex       | Usage                                 |
-|-----------|-----------|---------------------------------------|
-| Primary   | `#0A84FF` | CTAs, active states, links            |
-| Secondary | `#30D158` | Success, available slots, confirmations|
-| Accent    | `#FF9F0A` | Warnings, charging state, highlights  |
+## Core Palette
+| Name  | Hex       | Usage |
+|-------|-----------|-------|
+| Ink   | `#331D2C` | Base background, overlays, deep emphasis |
+| Plum  | `#3F2E3E` | Cards, shells, elevated surfaces |
+| Mauve | `#A78295` | Primary actions, active accents, progress |
+| Cream | `#EFE1D1` | High-priority text, confirmation emphasis, bright UI moments |
 
-## Slot State Colors
-| State     | Hex       | Glow Shadow                          |
-|-----------|-----------|---------------------------------------|
-| Available | `#30D158` | `0 0 20px rgba(48,209,88,0.4)`       |
-| Charging  | `#FF9F0A` | `0 0 20px rgba(255,159,10,0.4)`      |
-| Reserved  | `#0A84FF` | `0 0 20px rgba(10,132,255,0.4)`      |
-| Fault     | `#FF453A` | `0 0 20px rgba(255,69,58,0.5)`       |
+## Derived Semantic Tokens
+| Token      | Hex       | Context |
+|------------|-----------|---------|
+| Primary    | `#A78295` | Main CTA, selected state, key interactions |
+| Secondary  | `#EFE1D1` | High-visibility controls, success emphasis |
+| Highlight  | `#C6A7B6` | Secondary accents, active cards, motion cues |
+| Warning    | `#D8C5BE` | Soft caution messaging, queue/wait states |
+| Error      | `#6E4D5D` | Faults, lockouts, disruptive alerts |
 
-## Severity
-| Level   | Hex       | Context                              |
-|---------|-----------|---------------------------------------|
-| Info    | `#64D2FF` | Informational messages               |
-| Yellow  | `#FFD60A` | Mild temperature warning             |
-| Orange  | `#FF9F0A` | Elevated temperature warning         |
-| Red     | `#FF453A` | Critical / emergency                 |
+## Slot State Mapping
+| State     | Hex       |
+|-----------|-----------|
+| Available | `#EFE1D1` |
+| Charging  | `#C6A7B6` |
+| Reserved  | `#A78295` |
+| Fault     | `#6E4D5D` |
 
-## Dark Theme Surface
-| Token        | Value                    |
-|--------------|--------------------------|
-| Background   | `#000000`                |
-| Card         | `#1C1C1E`                |
-| Elevated     | `#2C2C2E`                |
-| Overlay      | `rgba(0, 0, 0, 0.6)`    |
+## Surface System
+| Token      | Value                  |
+|------------|------------------------|
+| Background | `#24151F`              |
+| Card       | `#3F2E3E`              |
+| Elevated   | `#594457`              |
+| Overlay    | `rgba(51, 29, 44, 0.72)` |
 
-## High Contrast Mode
-All foreground text becomes `#FFFFFF`, all backgrounds become `#000000`, and interactive elements use outline-only styling with 3px borders.
+## Usage Notes
+- Keep the experience dark and atmospheric, with cream used sparingly for clarity and focus.
+- Use mauve as the default interaction accent across customer flows.
+- Reserve the cream button treatment for the most important action on a screen.
+- Use repeated surface primitives instead of introducing one-off panel colors.

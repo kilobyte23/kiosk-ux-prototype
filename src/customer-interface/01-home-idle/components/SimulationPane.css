@@ -1,0 +1,96 @@
+.simulation-pane {
+  width: min(320px, calc(100vw - 24px));
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(var(--cream-rgb), 0.18);
+  background:
+    linear-gradient(180deg, rgba(var(--cream-rgb), 0.08), rgba(var(--cream-rgb), 0.02)),
+    rgba(var(--ink-rgb), 0.88);
+  box-shadow: 0 16px 30px rgba(var(--ink-rgb), 0.42);
+}
+
+.simulation-pane__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.simulation-pane__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray-100);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.simulation-pane__close {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--cream-rgb), 0.18);
+  background: rgba(var(--cream-rgb), 0.08);
+  color: var(--gray-200);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.simulation-pane__status {
+  margin-top: 8px;
+  min-height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--cream-rgb), 0.26);
+  background: rgba(var(--cream-rgb), 0.14);
+  color: var(--gray-100);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 11px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.simulation-pane__note {
+  margin-top: 8px;
+  color: var(--gray-400);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.simulation-pane__grid {
+  margin-top: 9px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.simulation-pane__grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.simulation-pane__grid span {
+  color: var(--gray-400);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.simulation-pane__grid input,
+.simulation-pane__grid select {
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid rgba(var(--cream-rgb), 0.18);
+  background: rgba(var(--ink-rgb), 0.65);
+  color: var(--gray-100);
+  padding: 0 8px;
+  font-size: 12px;
+}

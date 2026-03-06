@@ -141,7 +141,7 @@ export default function MobileOTPScreen() {
 
         <div className="auth-divider">or use another method</div>
 
-        <Link to="/customer/auth-select" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
+        <Link to="/customer/auth-select" className="btn btn-secondary">
           Choose different login method
         </Link>
       </div>

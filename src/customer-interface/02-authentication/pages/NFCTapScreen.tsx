@@ -22,16 +22,16 @@ export default function NFCTapScreen() {
 
         <div className="nfc-label">
           Bring your device close to the reader<br />
-          <strong style={{ color: '#BF5AF2' }}>NFC must be enabled</strong>
+          <span className="kiosk-emphasis">NFC must be enabled</span>
         </div>
 
         <div className="status-chip waiting">
-          <span style={{ fontSize: '8px' }}>&#9679;</span> Waiting for NFC signal…
+          <span className="kiosk-status-dot">&#9679;</span> Waiting for NFC signal…
         </div>
 
         <div className="auth-divider">or use another method</div>
 
-        <Link to="/customer/auth-select" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
+        <Link to="/customer/auth-select" className="btn btn-secondary">
           Choose different login method
         </Link>
       </div>

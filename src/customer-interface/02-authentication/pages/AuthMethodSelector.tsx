@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { QrCode, WifiHigh, ChatCircleText, CreditCard, Fingerprint, User } from '@phosphor-icons/react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, QrCode, WifiHigh, ChatCircleText, CreditCard, Fingerprint, User } from '@phosphor-icons/react';
 import '../auth.css';
 
 const authMethods = [
@@ -50,39 +50,53 @@ const authMethods = [
         title: 'Continue as Guest',
         desc: 'Limited swap quota — No account needed',
         accent: 'guest',
-        fullWidth: true,
     },
 ];
 
 export default function AuthMethodSelector() {
+    const navigate = useNavigate();
+
     return (
-        <div className="auth-container">
-            <Link to="/" className="auth-back-btn">
-                <span className="arrow">&#8592;</span> Back
-            </Link>
+        <div className="auth-container auth-selector">
+            <button
+                type="button"
+                className="auth-back-btn"
+                onClick={() => {
+                    if (window.history.length > 1) {
+                        navigate(-1);
+                        return;
+                    }
 
-            <div className="auth-header">
-                <h1>Choose Login Method</h1>
-                <p>Select a modern login method to securely start your battery swap</p>
-            </div>
+                    navigate('/customer/home');
+                }}
+            >
+                <ArrowLeft size={16} weight="bold" /> Back
+            </button>
 
-            <div className="auth-method-grid">
-                {authMethods.map((m) => {
-                    const Icon = m.icon;
-                    return (
-                        <Link
-                            key={m.id}
-                            to={m.path}
-                            className={`auth-method-card ${m.accent}${'fullWidth' in m && m.fullWidth ? ' full-width' : ''}`}
-                        >
-                            <div className="icon-circle">
-                                <Icon size={26} weight="light" />
-                            </div>
-                            <h3>{m.title}</h3>
-                            <span className="method-desc">{m.desc}</span>
-                        </Link>
-                    );
-                })}
+            <div className="auth-selector__body">
+                <div className="auth-header auth-selector__header">
+                    <h1>Choose Login Method</h1>
+                    <p>Select a login method to start your battery swap.</p>
+                </div>
+
+                <div className="auth-method-grid">
+                    {authMethods.map((m) => {
+                        const Icon = m.icon;
+                        return (
+                            <Link
+                                key={m.id}
+                                to={m.path}
+                                className={`auth-method-card ${m.accent}`}
+                            >
+                                <div className="icon-circle">
+                                    <Icon size={26} weight="light" />
+                                </div>
+                                <h3>{m.title}</h3>
+                                <span className="method-desc">{m.desc}</span>
+                            </Link>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

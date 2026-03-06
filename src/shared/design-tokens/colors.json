@@ -1,38 +1,32 @@
 {
   "brand": {
-    "primary": "#0A84FF",
-    "secondary": "#30D158",
-    "accent": "#FF9F0A"
+    "ink": "#331D2C",
+    "plum": "#3F2E3E",
+    "mauve": "#A78295",
+    "cream": "#EFE1D1"
+  },
+  "semantic": {
+    "primary": "#A78295",
+    "secondary": "#EFE1D1",
+    "highlight": "#C6A7B6",
+    "warning": "#D8C5BE",
+    "error": "#6E4D5D"
   },
   "slot-states": {
-    "available": "#30D158",
-    "charging": "#FF9F0A",
-    "reserved": "#0A84FF",
-    "fault": "#FF453A"
-  },
-  "severity": {
-    "info": "#64D2FF",
-    "warning-yellow": "#FFD60A",
-    "warning-orange": "#FF9F0A",
-    "critical": "#FF453A"
-  },
-  "neutral": {
-    "white": "#FFFFFF",
-    "gray-100": "#F2F2F7",
-    "gray-200": "#E5E5EA",
-    "gray-300": "#D1D1D6",
-    "gray-400": "#C7C7CC",
-    "gray-500": "#AEAEB2",
-    "gray-600": "#8E8E93",
-    "gray-700": "#636366",
-    "gray-800": "#48484A",
-    "gray-900": "#3A3A3C",
-    "black": "#1C1C1E"
+    "available": "#EFE1D1",
+    "charging": "#C6A7B6",
+    "reserved": "#A78295",
+    "fault": "#6E4D5D"
   },
   "surface": {
-    "background": "#000000",
-    "card": "#1C1C1E",
-    "elevated": "#2C2C2E",
-    "overlay": "rgba(0, 0, 0, 0.6)"
+    "background": "#24151F",
+    "card": "#3F2E3E",
+    "elevated": "#594457",
+    "overlay": "rgba(51, 29, 44, 0.72)"
+  },
+  "text": {
+    "primary": "#F7EFE6",
+    "secondary": "#D4C0BF",
+    "muted": "#9D8A94"
   }
 }

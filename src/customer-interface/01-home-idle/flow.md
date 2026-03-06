@@ -5,7 +5,7 @@
 2. **StationStatusScreen** — Online / Maintenance / Partial Service banner
 
 ## Components
-- **LanguageSelector** — Flag icons, ≥6 regional languages
+- **LanguageSelector** — English-only selector (icon-based, future multilingual expansion)
 - **AccessibilityToggle** — High contrast · Large text · Screen reader
 - **PromotionalCarousel** — Plans & offers (non-intrusive overlay)
 - **ConnectivityIndicator** — Network status + offline degradation
